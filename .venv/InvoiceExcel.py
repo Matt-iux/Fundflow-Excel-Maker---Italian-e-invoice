@@ -51,12 +51,21 @@ def Compose_dataframe():
         Invoice_Excel_Field = (' FT ' + Invoice_String + ' del ' + Date.text)
         print(Invoice_Excel_Field)
 
+        # Temporary Bugfix, Some invoice don't have the
+        # FatturaElettronicaBody/DatiPagamento/DettaglioPagamento/ImportoPagamento field
+        if Cash_Flow is None:
+            Cash_Flow_Text = str("verificare su fattura")
+        else:
+            Cash_Flow_Text = Cash_Flow.text
+
+
         # Set the dataframe, need to insert data, defined only columns
         df = pd.DataFrame({ 'Debitor' : Debitor.text,
                             'Beneficiary' : Beneficiary.text,
                             'Transaction Date': None,
                             'Amount Request' : float(Amount_Requested.text),
-                            'Cash Flow' : float(Cash_Flow.text),
+                            #'Cash Flow' : float(Cash_Flow.text),
+                            'Cash Flow' : Cash_Flow_Text,
                             'Invoice' : Invoice_Excel_Field,
                             'Description' : Description.text,
                             'Purpose': None,
